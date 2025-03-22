@@ -1,6 +1,9 @@
-import Coder as coder
+from data_manager import encrypt as encrypt
+from data_manager import decrypt as decrypt
 import os
 import json
+from colorama import Fore
+import time
 
 #Path to storage
 storage = os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__,".."))),"Storage")
@@ -22,7 +25,7 @@ def store(site,user,pas):
 
 #Add Password
 def add_pass(name_of_site,user,pas):
-    enc_pass = coder.encrypt(pas)
+    enc_pass = encrypt(pas)
     store(name_of_site,user,enc_pass)
 
 #Find Password
@@ -33,24 +36,19 @@ def find_pass(name_of_site):
             spec_data = passes.get(name_of_site)
         if spec_data == None:
             user,pas = None,None
-            print("ERROR:PASSWORD DOES NOT EXSIST")
+            print(Fore.YELLOW+"Error:Site not found")
             return user,pas
         else:
             for i in spec_data.keys():
                 user = i
             for i in spec_data.values():
                 pas = i
-            pas = coder.decrypt(pas)
+            pas = decrypt(pas)
             return user,pas
     except FileNotFoundError:
-        print("ERROR : FILE NOT FOUND")
+        print(Fore.YELLOW+"Error:File not found")
     except Exception as e:
-        print(f"UNKNOWN ERROR: {e}")
+        print(Fore.YELLOW+f"Unknown Error: {e}")
 
-add_pass("Roblox","Miyon12b","Sanban123")
-
-user,pas = find_pass("gayblox")
-print(user)
-print(pas)
-
-
+us,pas  = find_pass("Netflix")
+print(us,pas)

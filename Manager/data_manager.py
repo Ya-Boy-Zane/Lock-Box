@@ -1,5 +1,6 @@
 from cryptography.fernet import Fernet as fer
 import os
+from colorama import Fore
 
 #Key Generator
 storage = os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__,".."))),"Storage")
@@ -17,7 +18,7 @@ try:
                 f1.write(key)
                 cypher = fer(key)
 except Exception as e:
-     print(f"UNKNOW ERROR: {e}")
+     print(Fore.RED+f"Unknown Error: {e}")
 
 #Encryptor
 def encrypt(pas):
@@ -32,6 +33,6 @@ def decrypt(pas):
     try:
         decr_pass = cypher.decrypt(pas)
     except Exception as e:
-         print("KEY ERROR:CURRENT KEY DOES NOT MATCH ENCRYPTION KEY OF CURRENT ENCRYPTED DATA")
+         print(Fore.RED+"KEY ERROR:CURRENT KEY DOES NOT MATCH ENCRYPTION KEY OF CURRENT ENCRYPTED DATA")
     decr_pass = decr_pass.decode()
     return decr_pass
