@@ -1,5 +1,11 @@
-from data_manager import encrypt as encrypt
-from data_manager import decrypt as decrypt
+import sys
+import os
+
+# Add the my_module directory to sys.path
+module_dir = os.path.dirname(os.path.abspath(__file__))
+if module_dir not in sys.path:
+    sys.path.append(module_dir)
+import data_manager as dat
 import os
 import json
 from colorama import Fore
@@ -25,7 +31,7 @@ def store(site,user,pas):
 
 #Add Password
 def add_pass(name_of_site,user,pas):
-    enc_pass = encrypt(pas)
+    enc_pass = dat.encrypt(pas)
     store(name_of_site,user,enc_pass)
 
 #Find Password
@@ -43,7 +49,7 @@ def find_pass(name_of_site):
                 user = i
             for i in spec_data.values():
                 pas = i
-            pas = decrypt(pas)
+            pas = dat.decrypt(pas)
             return user,pas
     except FileNotFoundError:
         print(Fore.YELLOW+"Error:File not found")

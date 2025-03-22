@@ -1,7 +1,6 @@
 from Manager import data_manager
 import time
-from Manager.system_manager  import find_pass as find
-from Manager.system_manager import add_pass as add
+from Manager import system_manager as sys
 
 from colorama import Fore
 
@@ -28,7 +27,7 @@ while True:
         if inp == "s":
             pass
         else:
-            user,pas = find(inp)
+            user,pas = sys.find_pass(inp)
             if user == None :
                 pass
             else:
@@ -40,7 +39,7 @@ while True:
         pas = input("Password:")
         veri = input("Are you sure(y/n)?:").lower()
         if veri == "y":
-                add(site,usr,pas)
+                sys.add_pass(site,usr,pas)
                 break
     elif choice == "c":
         pass
