@@ -10,7 +10,7 @@ def option(choice):
     #Finding password
 
     if choice == "find":
-        print(Fore.LIGHTGREEN_EX+"Please mention the name of the site",Fore.LIGHTGREEN_EX+"(Use the 'saved' command to get a list of saved sites)")
+        print(Fore.LIGHTGREEN_EX+"Please mention the name of the Identifier",Fore.LIGHTGREEN_EX+"(Use the 'saved' command to get a list of saved sites)")
         inp = input(Fore.LIGHTGREEN_EX+"Identifier:"+Fore.LIGHTCYAN_EX)
         if inp == "saved":
             sites = system_manager.sites("all",None)

@@ -41,7 +41,7 @@ def find_pass(name_of_site):
             spec_data = passes.get(name_of_site)
         if spec_data == None:
             user,pas = None,None
-            print(Fore.YELLOW+"Error:Site not found")
+            print(Fore.YELLOW+"Error:Identifier not found")
             return user,pas
         else:
             for i in spec_data.keys():
