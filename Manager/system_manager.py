@@ -1,7 +1,5 @@
 import sys
 import os
-
-# Add the my_module directory to sys.path
 module_dir = os.path.dirname(os.path.abspath(__file__))
 if module_dir not in sys.path:
     sys.path.append(module_dir)
@@ -14,6 +12,7 @@ import time
 #Path to storage
 storage = os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__,".."))),"Storage")
 data = os.path.join(storage,"data.json")
+site_file = os.path.join(storage,"sites.txt")
 
 #Storage
 def store(site,user,pas):
@@ -56,5 +55,38 @@ def find_pass(name_of_site):
     except Exception as e:
         print(Fore.YELLOW+f"Unknown Error: {e}")
 
-us,pas  = find_pass("Netflix")
-print(us,pas)
+def sites(tsk,site):
+    found = False
+    match tsk:
+        case "find":
+            with open(site_file,'r') as f:
+                sites = f.readlines()
+                if any(line.strip()==site for line in sites):
+                    found = True
+                else:
+                    found = False
+                return found
+        case "add":
+            with open(site_file,'a+') as a:
+                sites  = a.readlines()
+
+                if site in sites:
+                        pass
+                else:
+                        a.write(f"\n{site}")
+        case "all":
+            with open(site_file,'r') as r:
+                sites  = r.readlines()
+                if not sites:
+                    print(Fore.YELLOW+"You Do not have any saved data")
+                else:
+                    counter = 0
+                    print(Fore.GREEN+"------------------")
+                    for line in sites:
+                        if counter <= 0:
+                            counter = counter+1
+                        else:
+                            print(Fore.GREEN+str(counter)+"."+Fore.MAGENTA+line)
+                            counter = counter+1
+                    print(Fore.GREEN+"------------------")
+
